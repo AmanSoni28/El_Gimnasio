@@ -1,26 +1,246 @@
 @import "tailwindcss";
 
+/* ───────────────────────── Design tokens ───────────────────────── */
+@theme {
+  --color-ink: #080808;
+  --color-ink-2: #111111;
+  --color-ink-3: #181818;
+  --color-gold: #d4af37;
+  --color-gold-bright: #f5c451;
+  --color-bone: #f5f1e8;
+  --color-mute: #a7a7a7;
+  --color-line: rgb(245 241 232 / 0.12);
+
+  --font-serif: var(--font-cormorant), "Times New Roman", serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bebas), "Arial Narrow", sans-serif;
+
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-sharp: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --breakpoint-xs: 26rem;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --nav-h: 76px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ───────────────────────── Base ───────────────────────── */
+html {
+  background: var(--color-ink);
+  color: var(--color-bone);
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: clip;
+  min-height: 100svh;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+/* Scroll lock while the cinematic intro is running */
+html[data-intro="play"],
+html[data-intro="play"] body {
+  overflow: hidden;
+}
+
+/* The pre-hydration intro script decides visibility; nothing flashes. */
+html[data-intro="skip"] .intro-root {
+  display: none;
+}
+
+/* Hero elements wait for their entrance timeline (JS-only, so no-JS still shows content) */
+html[data-intro] .hero-hide {
+  visibility: hidden;
+}
+
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 1.5px solid var(--color-gold-bright);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* ───────────────────────── Custom cursor ───────────────────────── */
+@media (pointer: fine) {
+  html.has-cursor,
+  html.has-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* ───────────────────────── Utilities ───────────────────────── */
+@utility gutter {
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+@utility label {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+@utility text-gold-metal {
+  background: linear-gradient(
+    100deg,
+    #a8822a 0%,
+    #d4af37 22%,
+    #f7dc8a 42%,
+    #d4af37 58%,
+    #f5c451 78%,
+    #a8822a 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(245 241 232 / 0.22);
+}
+
+@utility mask-line {
+  overflow: hidden;
+  display: block;
+  /* room for descenders/italics so clipping never chops glyphs */
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Static film grain — one composited layer, never animated */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Gold hairline used across sections */
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold) 30%, var(--color-gold) 70%, transparent);
+}
+
+/* Slow-turning circular badge */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow {
+  animation: spin-slow 28s linear infinite;
+}
+
+/* Infinite marquee (transform-only) */
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.marquee-track {
+  animation: marquee 38s linear infinite;
+  will-change: transform;
+}
+
+/* Scroll indicator */
+@keyframes scroll-dot {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(260%);
+    opacity: 0;
+  }
+}
+.scroll-dot {
+  animation: scroll-dot 2.2s var(--ease-sharp) infinite;
+}
+
+/* ───────────────────────── Intro ───────────────────────── */
+.intro-root {
+  --hole: 0px;
+}
+.intro-root.is-portal {
+  -webkit-mask-image: radial-gradient(
+    circle at 50% 50%,
+    transparent calc(var(--hole) - 1px),
+    #000 calc(var(--hole) + 18px)
+  );
+  mask-image: radial-gradient(
+    circle at 50% 50%,
+    transparent calc(var(--hole) - 1px),
+    #000 calc(var(--hole) + 18px)
+  );
+}
+
+.intro-logo {
+  width: clamp(250px, 64vmin, 520px);
+  aspect-ratio: 1;
+}
+
+.logo-shine {
+  -webkit-mask-image: url("/brand/logo-full.webp");
+  mask-image: url("/brand/logo-full.webp");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  background: linear-gradient(
+    110deg,
+    transparent 38%,
+    rgb(255 248 225 / 0.95) 50%,
+    transparent 62%
+  );
+  background-size: 260% 100%;
+  background-position: 160% 0;
+}
+
+/* ───────────────────────── Reduced motion ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .spin-slow,
+  .marquee-track,
+  .scroll-dot {
+    animation: none !important;
+  }
+  html[data-intro] .hero-hide {
+    visibility: visible;
+  }
 }
