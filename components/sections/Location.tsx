@@ -96,9 +96,9 @@ export default function Location() {
       data-section="contact"
       data-nav="contact"
       data-title="Encuéntranos"
-      className="relative overflow-hidden bg-ink py-28 sm:py-36 lg:py-44"
+      className="relative overflow-hidden bg-ink py-20 sm:py-32 lg:py-44"
     >
-      <div className="grid gap-16 gutter lg:grid-cols-12 lg:gap-10">
+      <div className="grid gap-14 gutter lg:grid-cols-12 lg:gap-10">
         {/* Building */}
         <div className="relative lg:col-span-5 [perspective:1400px]">
           <div data-tilt className="group relative [transform-style:preserve-3d]">
@@ -111,7 +111,7 @@ export default function Location() {
                     fill
                     sizes="(min-width: 1024px) 40vw, 100vw"
                     placeholder="blur"
-                    quality={90}
+                    quality={85}
                     className="object-cover object-[50%_25%] saturate-[0.82] brightness-[0.9] transition-[filter] duration-1000 group-hover:saturate-100 group-hover:brightness-100"
                   />
                 </div>

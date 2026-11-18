@@ -81,7 +81,7 @@ export default function Facilities() {
       data-section="facility"
       data-nav="facilities"
       data-title="La Escalera"
-      className="relative overflow-hidden bg-ink py-28 sm:py-36 lg:py-44"
+      className="relative overflow-hidden bg-ink py-20 sm:py-32 lg:py-44"
     >
       {/* Vertical outlined word */}
       <div

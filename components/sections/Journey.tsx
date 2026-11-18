@@ -52,7 +52,7 @@ export default function Journey() {
       data-section="journey"
       data-nav="contact"
       data-title="Tu Camino"
-      className="relative overflow-hidden bg-ink-2 py-28 sm:py-36"
+      className="relative overflow-hidden bg-ink-2 py-20 sm:py-32"
     >
       <div className="pointer-events-none absolute -right-1/4 top-0 h-[70vh] w-[70vh] rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.08),transparent_65%)]" />
 
@@ -77,7 +77,7 @@ export default function Journey() {
           </div>
         </div>
 
-        <ol data-steps className="relative mt-20 grid gap-14 pl-10 lg:grid-cols-4 lg:gap-10 lg:pl-0 lg:pt-14">
+        <ol data-steps className="relative mt-14 grid sm:mt-20 gap-12 pl-10 lg:grid-cols-4 lg:gap-10 lg:pl-0 lg:pt-14">
           {/* Track + drawn path: vertical on mobile, horizontal on desktop */}
           <span className="absolute bottom-0 left-[7px] top-0 w-px bg-line lg:inset-x-0 lg:bottom-auto lg:top-[7px] lg:h-px lg:w-auto" />
           <span

@@ -78,7 +78,7 @@ export default function FinalCTA() {
       data-section="cta"
       data-nav="contact"
       data-title="Comienza"
-      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-ink py-32"
+      className="relative flex items-center justify-center overflow-hidden bg-ink py-24 sm:min-h-[100svh] sm:py-32"
     >
       <div data-cta-depth="-30" aria-hidden className="pointer-events-none absolute inset-0">
         <div

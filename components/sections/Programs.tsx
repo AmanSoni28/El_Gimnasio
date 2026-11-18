@@ -191,7 +191,7 @@ export default function Programs() {
       data-section="programs"
       data-nav="programs"
       data-title="Programas"
-      className="relative bg-ink-2 py-28 sm:py-36"
+      className="relative bg-ink-2 py-20 sm:py-32"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 hairline opacity-40" />
       <div className="gutter">

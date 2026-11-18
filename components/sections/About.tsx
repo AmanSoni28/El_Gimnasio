@@ -85,7 +85,7 @@ export default function About() {
       data-section="about"
       data-nav="about"
       data-title="Nosotros"
-      className="relative overflow-hidden bg-ink py-28 sm:py-36 lg:py-44"
+      className="relative overflow-hidden bg-ink py-20 sm:py-32 lg:py-44"
     >
       {/* Oversized background word */}
       <div aria-hidden className="pointer-events-none absolute -top-6 right-0 select-none font-serif text-[22vw] uppercase leading-none text-outline lg:text-[15vw]">

@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useReducedMotion } from "@/lib/hooks";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useMediaQuery, useReducedMotion } from "@/lib/hooks";
+
+const noop = () => () => {};
 
 type Props = {
   src: string;
@@ -25,9 +27,14 @@ type Props = {
  */
 export default function LazyVideo({ src, poster, className = "", active = true, eager = false, threshold = 0.25, label }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
+  // Even eager videos get their src after mount, so the server never emits the desktop file to a phone.
   const [near, setNear] = useState(eager);
   const [visible, setVisible] = useState(false);
   const reduced = useReducedMotion();
+  // Phones get the 720p encode in /media/m/ (same filename), roughly a third of the bytes.
+  const small = useMediaQuery("(max-width: 767px)");
+  const file = small ? src.replace("/media/", "/media/m/") : src;
+  const hydrated = useSyncExternalStore(noop, () => true, () => false);
 
   useEffect(() => {
     const el = ref.current;
@@ -66,7 +73,7 @@ export default function LazyVideo({ src, poster, className = "", active = true, 
       ref={ref}
       className={className}
       poster={poster}
-      src={near ? src : undefined}
+      src={near && hydrated ? file : undefined}
       muted
       loop
       playsInline

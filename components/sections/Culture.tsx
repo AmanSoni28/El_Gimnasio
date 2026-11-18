@@ -98,7 +98,7 @@ export default function Culture() {
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         gsap.utils.toArray<HTMLElement>("[data-speed]").forEach((col) => {
-          const speed = parseFloat(col.dataset.speed || "0");
+          const speed = parseFloat(col.dataset.speed || "0") * (window.innerWidth < 768 ? 0.4 : 1);
           gsap.fromTo(
             col,
             { y: -speed },
@@ -139,7 +139,7 @@ export default function Culture() {
       data-section="trainers"
       data-nav="trainers"
       data-title="Cultura"
-      className="relative overflow-hidden bg-ink-2 pt-28 sm:pt-36"
+      className="relative overflow-hidden bg-ink-2 pt-20 sm:pt-32"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 hairline opacity-40" />
       <div className="grid gap-8 gutter lg:grid-cols-12">
@@ -164,7 +164,7 @@ export default function Culture() {
       </div>
 
       {/* Collage */}
-      <div data-collage className="relative mt-16 grid grid-cols-2 gap-3 gutter pb-28 sm:gap-4 md:grid-cols-3 md:gap-6 sm:pb-36">
+      <div data-collage className="relative mt-12 grid grid-cols-2 gap-3 gutter pb-20 sm:mt-16 sm:gap-4 md:grid-cols-3 md:gap-6 sm:pb-32">
         <div data-speed="-40" className="flex flex-col gap-3 sm:gap-4 md:gap-6">
           <Tile t={T.boxing} n={1} />
           <div data-fade className="hidden border-l border-gold/50 py-2 pl-5 md:block">
@@ -191,7 +191,7 @@ export default function Culture() {
         target="_blank"
         rel="noopener noreferrer"
         data-cursor="Follow"
-        className="group relative block border-t border-line py-14 gutter sm:py-20"
+        className="group relative block border-t border-line py-12 gutter sm:py-20"
       >
         <span data-follow-rule className="absolute inset-x-0 top-0 block h-px origin-left bg-gradient-to-r from-gold via-gold-bright to-transparent" />
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
