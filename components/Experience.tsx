@@ -13,7 +13,9 @@ import Experience from "@/components/sections/Experience";
 import Facilities from "@/components/sections/Facilities";
 import FinalCTA from "@/components/sections/FinalCTA";
 import Hero from "@/components/sections/Hero";
+import Journey from "@/components/sections/Journey";
 import Location from "@/components/sections/Location";
+import Marquee from "@/components/sections/Marquee";
 import Programs from "@/components/sections/Programs";
 import Showcase from "@/components/sections/Showcase";
 import JoinModal from "@/components/ui/JoinModal";
@@ -60,12 +62,14 @@ export default function Site() {
       <Navbar />
       <main>
         <Hero />
+        <Marquee />
         <About />
         <Experience />
         <Programs />
         <Showcase />
         <Facilities />
         <Culture />
+        <Journey />
         <Location />
         <FinalCTA />
       </main>

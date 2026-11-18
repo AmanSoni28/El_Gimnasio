@@ -33,7 +33,8 @@ export default function Hero() {
       split = SplitText.create(el.querySelectorAll("[data-hero-line]"), { type: "chars", charsClass: "inline-block will-change-transform" });
       const tl = gsap.timeline({ delay: viaIntro ? 0.1 : 0.15 });
       tl.set(hidden, { visibility: "visible" })
-        .fromTo(mediaInner.current, { scale: viaIntro ? 1.32 : 1.18 }, { scale: 1.08, duration: viaIntro ? 2.6 : 2.2, ease: "expo.out" }, 0)
+        // Source is 480p: keep zoom minimal so it isn't upscaled further.
+        .fromTo(mediaInner.current, { scale: viaIntro ? 1.14 : 1.08 }, { scale: 1.01, duration: viaIntro ? 2.6 : 2.2, ease: "expo.out" }, 0)
         .from("[data-hero-rule]", { scaleX: 0, transformOrigin: "left", duration: 1.2, ease: "expo.inOut" }, 0.2)
         .from("[data-hero-kicker]", { yPercent: 120, duration: 1, ease: "expo.out" }, 0.4)
         .from(split.chars, { yPercent: 118, rotate: 5, duration: 1.25, ease: "expo.out", stagger: 0.018 }, 0.45)
@@ -96,23 +97,25 @@ export default function Hero() {
       className="relative h-[100svh] min-h-[620px] w-full overflow-hidden bg-ink"
     >
       {/* Media */}
-      <div ref={media} className="absolute -inset-[3%] will-change-transform">
-        <div ref={mediaInner} className="absolute inset-0 scale-[1.08] will-change-transform">
+      <div ref={media} className="absolute -inset-[2%] will-change-transform">
+        <div ref={mediaInner} className="absolute inset-0 scale-[1.01] will-change-transform">
           <LazyVideo
             eager
             src="/media/hero.mp4"
             poster="/media/posters/hero.jpg"
             threshold={0.05}
-            className="h-full w-full object-cover"
+            // Light, crisp grade: a touch brighter and punchier so the footage reads clearly.
+            className="h-full w-full object-cover [filter:brightness(1.08)_contrast(1.08)_saturate(1.1)]"
             label="Inside EL GIMNASIO: the training floor overlooking the city"
           />
         </div>
       </div>
 
       {/* Grade: readable left, cinematic bottom, soft gold accent */}
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(8,8,8,0.92)_0%,rgba(8,8,8,0.72)_38%,rgba(8,8,8,0.35)_70%,rgba(8,8,8,0.55)_100%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,8,0.7)_0%,transparent_22%,transparent_55%,rgba(8,8,8,0.95)_100%)]" />
-      <div className="pointer-events-none absolute -bottom-1/3 -left-1/4 h-[90vh] w-[90vh] rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.16),transparent_62%)]" />
+      {/* Light grade: video stays clear; only the text area (left/bottom) and nav strip get shade. */}
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(8,8,8,0.55)_0%,rgba(8,8,8,0.25)_40%,transparent_65%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,8,0.45)_0%,transparent_16%,transparent_50%,rgba(8,8,8,0.8)_100%)]" />
+      <div className="pointer-events-none absolute -bottom-1/3 -left-1/4 h-[90vh] w-[90vh] rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.12),transparent_62%)]" />
       <div className="grain pointer-events-none absolute inset-0" />
 
       {/* Copy */}
@@ -129,7 +132,7 @@ export default function Hero() {
           </span>
         </div>
 
-        <h2 className="hero-hide font-serif text-[clamp(2.65rem,8.2vw,8.75rem)] font-medium uppercase leading-[0.9] tracking-[-0.012em]">
+        <h2 className="hero-hide font-serif text-[clamp(2.65rem,8.2vw,8.75rem)] [text-shadow:0_2px_24px_rgba(0,0,0,0.45)] font-medium uppercase leading-[0.9] tracking-[-0.012em]">
           <span className="mask-line">
             <span data-hero-line className="block">
               Built by discipline.
@@ -137,13 +140,13 @@ export default function Hero() {
           </span>
           <span className="mask-line">
             <span data-hero-line className="block">
-              Defined by <em className="text-gold-metal font-normal italic">strength.</em>
+              Defined by <em className="text-gold-metal font-normal italic [text-shadow:none]">strength.</em>
             </span>
           </span>
         </h2>
 
         <div className="mt-8 flex flex-col gap-8 sm:mt-10 lg:flex-row lg:items-end lg:justify-between">
-          <p data-hero-sub className="hero-hide max-w-[34rem] text-[0.98rem] leading-relaxed text-bone/72 sm:text-[1.05rem]">
+          <p data-hero-sub className="hero-hide max-w-[34rem] text-[0.98rem] leading-relaxed text-bone/85 [text-shadow:0_1px_12px_rgba(0,0,0,0.6)] sm:text-[1.05rem]">
             Where strength meets purpose. Discover a better version of yourself at{" "}
             <span className="text-bone">EL GIMNASIO</span>.
           </p>

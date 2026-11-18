@@ -167,15 +167,22 @@ button {
   animation: spin-slow 28s linear infinite;
 }
 
-/* Infinite marquee (transform-only) */
-@keyframes marquee {
-  to {
-    transform: translate3d(-50%, 0, 0);
+/* Breathing gold halo behind the final CTA */
+@keyframes cta-halo {
+  0% {
+    box-shadow: 0 0 0 0 rgb(212 175 55 / 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 22px rgb(212 175 55 / 0);
   }
 }
-.marquee-track {
-  animation: marquee 38s linear infinite;
-  will-change: transform;
+.cta-halo {
+  animation: cta-halo 2.6s var(--ease-sharp, ease-out) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-halo {
+    animation: none;
+  }
 }
 
 /* Scroll indicator */
@@ -236,7 +243,6 @@ button {
 /* ───────────────────────── Reduced motion ───────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .spin-slow,
-  .marquee-track,
   .scroll-dot {
     animation: none !important;
   }

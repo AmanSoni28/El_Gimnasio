@@ -20,13 +20,21 @@ export default function Footer() {
     () => {
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.from("[data-wordmark]", {
-          yPercent: 40,
-          clipPath: "inset(0% 0% 100% 0%)",
-          duration: 1.6,
-          ease: "expo.out",
-          scrollTrigger: { trigger: "[data-wordmark]", start: "top 98%", once: true },
-        });
+        // Letters gather from wide tracking and blur into focus, a gold rule draws under them,
+        // then the metal gradient keeps a slow shimmer.
+        gsap
+          .timeline({ scrollTrigger: { trigger: "[data-wordmark-wrap]", start: "top 92%", once: true } })
+          .from("[data-wordmark]", {
+            letterSpacing: "0.35em",
+            yPercent: 30,
+            autoAlpha: 0,
+            filter: "blur(18px)",
+            duration: 2,
+            ease: "expo.out",
+          })
+          .from("[data-wordmark-rule]", { scaleX: 0, duration: 1.4, ease: "expo.inOut" }, 0.6)
+          .from("[data-wordmark-tag]", { autoAlpha: 0, y: 12, duration: 1 }, 1.1)
+          .to("[data-wordmark]", { backgroundPosition: "100% 0%", duration: 6, ease: "sine.inOut", repeat: -1, yoyo: true }, 1.2);
       });
     },
     { scope: root },
@@ -115,13 +123,20 @@ export default function Footer() {
         </button>
       </div>
 
-      <div aria-hidden className="pointer-events-none select-none overflow-hidden">
+      <div aria-hidden data-wordmark-wrap className="pointer-events-none select-none overflow-hidden pb-8 pt-2 sm:pb-12">
         <p
           data-wordmark
-          className="text-gold-metal -mb-[0.2em] whitespace-nowrap text-center font-serif text-[15.5vw] font-semibold uppercase leading-[0.9] tracking-[-0.01em] opacity-90"
+          className="text-gold-metal whitespace-nowrap text-center font-serif text-[13.5vw] font-semibold uppercase leading-[1.05] tracking-[-0.01em] [background-position:0%_0%]"
         >
           El Gimnasio
         </p>
+        <div className="mt-4 flex items-center justify-center gap-5 gutter sm:mt-6">
+          <span data-wordmark-rule className="block h-px w-16 origin-right bg-gradient-to-l from-gold to-transparent sm:w-32" />
+          <span data-wordmark-tag className="label text-[0.55rem] tracking-[0.5em] text-gold/80 sm:text-[0.62rem]">
+            The Gym · Est. 2025
+          </span>
+          <span data-wordmark-rule className="block h-px w-16 origin-left bg-gradient-to-r from-gold to-transparent sm:w-32" />
+        </div>
       </div>
     </footer>
   );
