@@ -14,6 +14,10 @@ export default function Hero() {
   const mediaInner = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const played = useRef(false);
+  const cleanup = useRef<(() => void) | null>(null);
+
+  // Revert only on unmount: reverting on the revealing→done phase change re-hid the copy mid-entrance.
+  useEffect(() => () => cleanup.current?.(), []);
 
   /* Entrance: starts while the intro portal is still opening, so the two feel like one shot. */
   useEffect(() => {
@@ -44,7 +48,7 @@ export default function Hero() {
         .from("[data-hero-scroll]", { autoAlpha: 0, y: -10, duration: 1 }, 1.7);
     }, el);
 
-    return () => {
+    cleanup.current = () => {
       ctx.revert();
       split?.revert();
     };
