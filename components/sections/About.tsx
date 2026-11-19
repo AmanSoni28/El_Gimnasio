@@ -110,11 +110,11 @@ export default function About() {
               Manifiesto
             </span>
             <div className="space-y-5 text-[1.02rem] leading-relaxed text-bone/70">
-              <p data-fade>
+              <p data-scrub-text>
                 EL GIMNASIO was built on a simple belief: strength is earned, not given. Every detail of our space — from the
                 calorie-marked staircase to the training floor framed by the city skyline — is designed to keep you moving forward.
               </p>
-              <p data-fade>
+              <p data-scrub-text>
                 Here, beginners and athletes train side by side under one standard. No shortcuts. No noise. Just purposeful work,
                 expert guidance and a community that holds you to your best.
               </p>

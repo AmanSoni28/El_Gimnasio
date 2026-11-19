@@ -167,6 +167,16 @@ button {
   animation: spin-slow 28s linear infinite;
 }
 
+/* Slow metallic sheen on every gold word (the final CTA drives its own via GSAP) */
+@keyframes gold-sheen {
+  to {
+    background-position: 100% 0;
+  }
+}
+.text-gold-metal:not([data-cta-gold]) {
+  animation: gold-sheen 5s ease-in-out infinite alternate;
+}
+
 /* Breathing gold halo behind the final CTA */
 @keyframes cta-halo {
   0% {
@@ -243,7 +253,8 @@ button {
 /* ───────────────────────── Reduced motion ───────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .spin-slow,
-  .scroll-dot {
+  .scroll-dot,
+  .text-gold-metal {
     animation: none !important;
   }
   html[data-intro] .hero-hide {

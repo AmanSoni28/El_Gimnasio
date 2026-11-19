@@ -13,9 +13,9 @@ type TileData = { src: string; poster: string; es: string; title: string; aspect
 const T = {
   boxing: { src: "/media/culture-boxing.mp4", poster: "/media/posters/culture-boxing.jpg", es: "Boxeo", title: "Fight-ready conditioning", aspect: "aspect-[3/4.4]" },
   group: { src: "/media/culture-group.mp4", poster: "/media/posters/culture-group.jpg", es: "Comunidad", title: "Energy you can feel", aspect: "aspect-[3/4]", featured: true },
-  coach: { src: "/media/culture-coach.mp4", poster: "/media/posters/culture-coach.jpg", es: "Entrenadores", title: "Coaches on the floor", aspect: "aspect-[4/5]" },
+  coach: { src: "/media/culture-rope.mp4", poster: "/media/posters/culture-rope.jpg", es: "Cuerdas", title: "Battle ropes, full power", aspect: "aspect-[4/5]" },
   functional: { src: "/media/culture-functional.mp4", poster: "/media/posters/culture-functional.jpg", es: "Funcional", title: "Grip, hang, conquer", aspect: "aspect-[3/4.6]" },
-  yoga: { src: "/media/yoga.mp4", poster: "/media/posters/yoga.jpg", es: "Equilibrio", title: "Control and balance", aspect: "aspect-[4/5]" },
+  weight: { src: "/media/culture-weight.mp4", poster: "/media/posters/culture-weight.jpg", es: "Fuerza", title: "Lift with intent", aspect: "aspect-[4/5]" },
 } satisfies Record<string, TileData>;
 
 function Tile({ t, n, className = "" }: { t: TileData; n: number; className?: string }) {
@@ -139,6 +139,7 @@ export default function Culture() {
       data-section="trainers"
       data-nav="trainers"
       data-title="Cultura"
+      data-rise
       className="relative overflow-hidden bg-ink-2 pt-20 sm:pt-32"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 hairline opacity-40" />
@@ -156,7 +157,7 @@ export default function Culture() {
           />
         </div>
         <div className="flex items-end lg:col-span-4 lg:col-start-9">
-          <p data-fade className="text-[0.98rem] leading-relaxed text-mute">
+          <p data-scrub-text className="text-[0.98rem] leading-relaxed text-mute">
             Coaches who lead from the floor. A community that shows up, pushes hard and celebrates every rep. This is the culture you
             train in at EL GIMNASIO.
           </p>
@@ -180,7 +181,7 @@ export default function Culture() {
         </div>
         <div data-speed="-80" className="col-span-2 grid grid-cols-2 gap-3 sm:gap-4 md:col-span-1 md:flex md:flex-col md:gap-6 md:pt-10">
           <Tile t={T.functional} n={4} />
-          <Tile t={T.yoga} n={5} />
+          <Tile t={T.weight} n={5} />
         </div>
       </div>
 

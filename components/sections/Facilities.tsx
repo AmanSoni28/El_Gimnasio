@@ -106,7 +106,7 @@ export default function Facilities() {
                 </>,
               ]}
             />
-            <p data-fade className="mt-8 max-w-md text-[1.02rem] leading-relaxed text-bone/70">
+            <p data-scrub-text className="mt-8 max-w-md text-[1.02rem] leading-relaxed text-bone/70">
               The workout starts before you reach the floor. Our staircase is part of the training: each step is marked with
               the calories it burns, from the first stride to the final climb, beneath a mural celebrating every kind of athlete.
             </p>

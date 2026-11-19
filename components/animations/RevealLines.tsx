@@ -35,6 +35,7 @@ export default function RevealLines({
         gsap.from(ref.current!.querySelectorAll("[data-line]"), {
           yPercent: 112,
           skewY: 4,
+          filter: "blur(10px)",
           duration: 1.25,
           ease: "expo.out",
           stagger,

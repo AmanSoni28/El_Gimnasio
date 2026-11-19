@@ -34,7 +34,8 @@ export default function Hero() {
         gsap.set(hidden, { visibility: "visible" });
         return;
       }
-      split = SplitText.create(el.querySelectorAll("[data-hero-line]"), { type: "chars", charsClass: "inline-block will-change-transform" });
+      // Gold word stays unsplit: per-char wrappers break its background-clip:text and it renders invisible.
+      split = SplitText.create(el.querySelectorAll("[data-hero-line]"), { type: "chars", charsClass: "inline-block will-change-transform", ignore: "em" });
       const tl = gsap.timeline({ delay: viaIntro ? 0.1 : 0.15 });
       tl.set(hidden, { visibility: "visible" })
         // Source is 480p: keep zoom minimal so it isn't upscaled further.
@@ -42,6 +43,7 @@ export default function Hero() {
         .from("[data-hero-rule]", { scaleX: 0, transformOrigin: "left", duration: 1.2, ease: "expo.inOut" }, 0.2)
         .from("[data-hero-kicker]", { yPercent: 120, duration: 1, ease: "expo.out" }, 0.4)
         .from(split.chars, { yPercent: 118, rotate: 5, duration: 1.25, ease: "expo.out", stagger: 0.018 }, 0.45)
+        .from("[data-hero-line] em", { yPercent: 118, rotate: 5, filter: "blur(8px)", duration: 1.5, ease: "expo.out" }, 0.8)
         .from("[data-hero-sub]", { y: 24, autoAlpha: 0, duration: 1.1, ease: "power3.out" }, 1.1)
         .from("[data-hero-cta]", { y: 30, autoAlpha: 0, duration: 1, ease: "power3.out", stagger: 0.1 }, 1.25)
         .from("[data-hero-side]", { autoAlpha: 0, y: 16, duration: 1, stagger: 0.12 }, 1.4)
@@ -144,7 +146,7 @@ export default function Hero() {
           </span>
           <span className="mask-line">
             <span data-hero-line className="block">
-              Defined by <em className="text-gold-metal font-normal italic [text-shadow:none]">strength.</em>
+              Defined by <em className="text-gold-metal inline-block pr-[0.08em] font-normal italic [text-shadow:none]">strength.</em>
             </span>
           </span>
         </h2>

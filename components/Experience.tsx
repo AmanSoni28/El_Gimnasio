@@ -20,7 +20,38 @@ import Programs from "@/components/sections/Programs";
 import Showcase from "@/components/sections/Showcase";
 import JoinModal from "@/components/ui/JoinModal";
 import Toast from "@/components/ui/Toast";
+import { gsap, SplitText, useGSAP } from "@/lib/gsap";
 import { activeSection, introPhase, sectionMeta } from "@/lib/store";
+
+/**
+ * Site-wide scroll language, applied after every section has mounted (so pins above are measured):
+ * - [data-scrub-text]: paragraphs light up word by word as they're read.
+ * - [data-rise]: the section arrives as a rounded card that opens to full bleed.
+ */
+function useSiteMotion() {
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const splits = gsap.utils.toArray<HTMLElement>("[data-scrub-text]").map((el) => {
+        const split = SplitText.create(el, { type: "words" });
+        gsap.fromTo(
+          split.words,
+          { opacity: 0.14 },
+          { opacity: 1, stagger: 0.1, ease: "none", scrollTrigger: { trigger: el, start: "top 85%", end: "bottom 50%", scrub: true } },
+        );
+        return split;
+      });
+      gsap.utils.toArray<HTMLElement>("[data-rise]").forEach((el) =>
+        gsap.fromTo(
+          el,
+          { clipPath: "inset(0% 4% 0% 4% round 3rem 3rem 0 0)" },
+          { clipPath: "inset(0% 0% 0% 0% round 0rem 0rem 0 0)", ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "top 25%", scrub: true } },
+        ),
+      );
+      return () => splits.forEach((s) => s.revert());
+    });
+  });
+}
 
 /** Tracks which section crosses the middle of the viewport (nav highlight + indicator). */
 function useSectionTracking() {
@@ -45,6 +76,7 @@ function useSectionTracking() {
 
 export default function Site() {
   useSectionTracking();
+  useSiteMotion();
 
   // Decide once per browser session whether the intro plays (the inline
   // boot script already hid it pre-paint when it shouldn't).

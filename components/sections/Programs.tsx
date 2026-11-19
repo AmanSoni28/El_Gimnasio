@@ -191,6 +191,7 @@ export default function Programs() {
       data-section="programs"
       data-nav="programs"
       data-title="Programas"
+      data-rise
       className="relative bg-ink-2 py-20 sm:py-32"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 hairline opacity-40" />
@@ -208,7 +209,7 @@ export default function Programs() {
               ]}
             />
           </div>
-          <p data-fade className="max-w-sm text-[0.98rem] leading-relaxed text-mute">
+          <p data-scrub-text className="max-w-sm text-[0.98rem] leading-relaxed text-mute">
             Whether you&apos;re chasing your first pull-up or your next personal best, every program is coached with the same intent:
             measurable progress, built to last.
           </p>

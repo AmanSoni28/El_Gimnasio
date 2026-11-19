@@ -96,6 +96,7 @@ export default function Location() {
       data-section="contact"
       data-nav="contact"
       data-title="Encuéntranos"
+      data-rise
       className="relative overflow-hidden bg-ink py-20 sm:py-32 lg:py-44"
     >
       <div className="grid gap-14 gutter lg:grid-cols-12 lg:gap-10">
@@ -169,7 +170,7 @@ export default function Location() {
               </>,
             ]}
           />
-          <p data-fade className="mt-8 max-w-lg text-[1.02rem] leading-relaxed text-bone/70">
+          <p data-scrub-text className="mt-8 max-w-lg text-[1.02rem] leading-relaxed text-bone/70">
             Find us on the upper floors of Buddha Tower: glass-fronted training floors lit up above the street. Come for a tour, meet
             the coaches and feel the space for yourself.
           </p>
